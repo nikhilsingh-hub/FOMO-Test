@@ -42,33 +42,26 @@ import { setSelectedCryto, fetchCryptoData } from '../store/cryptoSlice';
 import { AppDispatch } from '../store/store';
 
 const StockSelector: React.FC = () => {
-    const [modalOpen, setModalOpen] = useState(false);
     const [selectedStock, setSelectedStockState] = useState('');
     const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = () => {
         dispatch(setSelectedCryto(selectedStock));
         dispatch(fetchCryptoData(selectedStock));
-        setModalOpen(false);
     };
 
     return (
-        <div>
-            <button onClick={() => setModalOpen(true)}>Change Stock/Crypto</button>
-            {modalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
+        <div className='items-end justify-end'>
+                    <div className="w-fit">
                         <input
+                            className='p-2 border-spacing-2 border-red-100'
                             type="text"
                             value={selectedStock}
                             onChange={(e) => setSelectedStockState(e.target.value)}
                             placeholder="Enter stock or crypto"
                         />
-                        <button onClick={handleSubmit}>Submit</button>
-                        <button onClick={() => setModalOpen(false)}>Cancel</button>
+                        <button className='rounded-lg bg-blue-500 text-white font-bold p-2 hover:bg-blue-700' onClick={handleSubmit}>Search</button>
                     </div>
-                </div>
-            )}
         </div>
     );
 };

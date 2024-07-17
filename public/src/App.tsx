@@ -37,7 +37,7 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCryptoData, setSelectedCryto } from './store/cryptoSlice';
+import { fetchCryptoData } from './store/cryptoSlice';
 import { RootState, AppDispatch } from './store/store';
 import StockTable from './components/StockTable';
 import StockSelector from './components/StockSelector';
@@ -57,10 +57,12 @@ const App: React.FC = () => {
   
 
     return (
-        <div className='flex flex-col justify-center items-center'>
-            <h1 className=''>Stock and Crypto Tracker</h1>
+        <div className='m-5'>
+            <h1 className='mb-5 font-extrabold text-black from-neutral-800'>Stock and Crypto Tracker</h1>
             <StockSelector />
-            <StockTable />
+            <div className=''>
+                <StockTable />
+            </div>
         </div>
     );
 };
