@@ -4,17 +4,16 @@ import { setSelectedCryto, fetchCryptoData } from '../store/cryptoSlice';
 import { RootState, AppDispatch } from '../store/store';
 
 const StockSelector: React.FC = () => {
-    const [selectedCryptoState, setSelectedCryptoState] = useState<string>('');
+    const selectedCrypto = useSelector((state: RootState) => state.selectedCrypto);
+    const [selectedCryptoState, setSelectedCryptoState] = useState<string>(selectedCrypto || '');
     const [modal, setModal] = useState<boolean>(false);
     const dispatch = useDispatch<AppDispatch>();
     const coins: string[] = ['bitcoin', 'ethereum', 'solana', 'dogecoin', 'litecoin'];
     const selectRef = useRef<HTMLSelectElement>(null);
-    const selectedCrypto = useSelector((state: RootState) => state.selectedCrypto);
 
     const handleSubmit = () => {
         if (selectRef.current) {
             const selectedValue = selectRef.current.value;
-            setSelectedCryptoState(selectedValue);
             dispatch(setSelectedCryto(selectedValue));
             dispatch(fetchCryptoData(selectedValue));
             setModal(false);
@@ -41,7 +40,10 @@ const StockSelector: React.FC = () => {
                     <div className='modal bg-slate-200 border-2 border-red-400 text-black rounded-lg p-10'>
                         <h3 className='text-center font-bold from-neutral-800'>Select Crypto</h3>
                         <div className='flex flex-row gap-8 p-4 rounded-lg'>
-                            <select ref={selectRef} className="rounded-md px-3 py-1 bg-gray-200 text-black border border-gray-300 focus:ring-2 focus:ring-blue-500">
+                            <select ref={selectRef} className="rounded-md px-3 py-1 bg-gray-200 text-black border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                             value={selectedCryptoState}
+                             onChange={(e) => setSelectedCryptoState(e.target.value)}
+                            >
                                 {coins.map((coin, index) => (
                                     <option key={index} value={coin}>{coin}</option>
                                 ))}
