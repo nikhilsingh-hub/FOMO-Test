@@ -43,6 +43,7 @@ export const cryptoSlice = createSlice({
         .addCase(fetchCryptoData.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.data = action.payload;
+            state.error = null;
         })
         .addCase(fetchCryptoData.rejected, (state, action) => {
             state.status = 'failed';

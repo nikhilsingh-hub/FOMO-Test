@@ -16,7 +16,6 @@ export const getAndSaveCryptoData = async () => {
             const fetchedData = response.data;
             const crypto = new Crypto({symbol: coin, price: `usd: ${fetchedData[coin]['usd']}`});
             const savedCrypto = await crypto.save();
-            console.log("saved crypto: ", savedCrypto)
         }
         
     } catch (error) {
@@ -24,7 +23,7 @@ export const getAndSaveCryptoData = async () => {
     }
 }
 
-export const getRecentTwentyData = async (req: Request, res: Response) => {
+export const getRecentCrptoData = async (req: Request, res: Response) => {
 
     try {
         const {cointype} = req.params;

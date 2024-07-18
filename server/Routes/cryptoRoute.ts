@@ -1,8 +1,8 @@
 import { Router } from "express";
-import {getRecentTwentyData} from '../Controller/cryptoController'
+import {getRecentCrptoData} from '../Controller/cryptoController'
 
 const router = Router();
 
-router.get('/:cointype', getRecentTwentyData);
+router.get('/:cointype', getRecentCrptoData);
 
 export default router;

@@ -20,7 +20,9 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// cron.schedule('*/5 * * * * *', getAndSaveCryptoData);
+
+cron.schedule('*/5 * * * * *', getAndSaveCryptoData);
+
 app.use(express.json());
 app.use('/getRecentData', cryptoRouter)
 
