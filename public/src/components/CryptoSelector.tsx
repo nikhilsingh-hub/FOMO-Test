@@ -35,17 +35,25 @@ const CryptoSelector: React.FC = () => {
         <div className='items-end justify-end'>
             <button className='cryptoButton rounded-lg bg-blue-400 p-2 text-white font-bold' onClick={() => setModal(true)}>Select Crypto</button>
             {
-                modal && <div className='fixed top-0 left-0 flex items-center justify-center h-full w-full bg-black opacity-80'>
+                modal && <div className='fixed top-0 left-0 flex items-center justify-center h-full w-full bg-black bg-opacity-80'>
 
-                    <div className='modal bg-slate-200 border-2 border-red-400 text-black rounded-lg p-10'>
+                    <div className='modal bg-slate-200 border-2 border-red-400 text-black rounded-lg p-10 opacity-100'>
                         <h3 className='text-center font-bold from-neutral-800'>Select Crypto</h3>
                         <div className='flex flex-row gap-8 p-4 rounded-lg'>
-                            <select ref={selectRef} className="rounded-md px-3 py-1 bg-gray-200 text-black border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                             value={selectedCryptoState}
-                             onChange={(e) => setSelectedCryptoState(e.target.value)}
+                        <select
+                                ref={selectRef}
+                                className="rounded-md px-3 py-2 bg-gray-200 text-black border border-gray-300 focus:ring-2 focus:ring-blue-500 w-64"
+                                value={selectedCryptoState}
+                                onChange={(e) => setSelectedCryptoState(e.target.value)}
                             >
                                 {coins.map((coin, index) => (
-                                    <option key={index} value={coin}>{coin}</option>
+                                    <option
+                                        key={index}
+                                        value={coin}
+                                        className="bg-gray-100 hover:bg-gray-200 p-2 transition ease-out duration-500"
+                                    >
+                                        {coin.charAt(0).toUpperCase() + coin.slice(1)}
+                                    </option>
                                 ))}
                             </select>
                             <button className='rounded-lg bg-blue-500 text-white font-bold p-2 hover:bg-blue-700' onClick={handleSubmit}>Search</button>

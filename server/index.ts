@@ -21,7 +21,7 @@ app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-cron.schedule('*/5 * * * * *', getAndSaveCryptoData);// save new documents every 5 seconds
+// cron.schedule('*/5 * * * * *', getAndSaveCryptoData);// save new documents every 5 seconds
 cron.schedule('*/200 * * * * *', deleteUnusedCoins); // delete older documents every 200 seconds
 
 app.use(express.json());

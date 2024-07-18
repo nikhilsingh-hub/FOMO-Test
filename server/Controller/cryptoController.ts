@@ -4,6 +4,7 @@ import Crypto  from '../Models/crypto'
 import { timeStamp } from 'console';
 
 const coins: string[] = ['bitcoin', 'ethereum', 'solana', 'dogecoin', 'litecoin'];
+// 
 
 export const getAndSaveCryptoData = async () => {
 
@@ -12,7 +13,7 @@ export const getAndSaveCryptoData = async () => {
 
             const response = await axios(`https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`,{
                 method: 'GET',
-                headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-9gkRjPfUXPT5nBe2Qdq7MMGJ'}
+                headers: {accept: 'application/json',}
             });
 
             const fetchedData = response.data;
@@ -20,11 +21,13 @@ export const getAndSaveCryptoData = async () => {
             const savedCrypto = await crypto.save();
         }
         
-    } catch (error) {
+    } catch (error: any) {
+        if (error.response && error.response.status === 429) {
+            console.log(`Rate limit exceeded`);
         console.log(error);
     }
 }
-
+}
 export const getCoinList = (req: Request, res: Response) => {
     res.status(200).json(coins)
 }
@@ -36,7 +39,7 @@ export const deleteUnusedCoins = async() => {
             await Crypto.deleteMany({_id : {$in : idsOfDocumentToDelete}})
             console.log("Unusefull documents deleted");
        
-    } catch (error) {
+    } catch (error: any) {
         console.log(error);
     }
 }
@@ -53,7 +56,7 @@ export const getRecentCrptoData = async (req: Request, res: Response) => {
             timestamp: entry.timestamp
           }));
         res.status(200).json(formattedData);
-    } catch (error) {
+    } catch (error: any) {
         res.status(400).json({"Error e": error})
     }
 }
