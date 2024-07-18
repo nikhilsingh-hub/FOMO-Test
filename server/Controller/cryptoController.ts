@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import axios from 'axios'
 import Crypto  from '../Models/crypto'
+import { timeStamp } from 'console';
+
+const coins: string[] = ['bitcoin', 'ethereum', 'solana', 'dogecoin', 'litecoin'];
 
 export const getAndSaveCryptoData = async () => {
-    const coins: string[] = ['bitcoin', 'ethereum', 'solana', 'dogecoin', 'litecoin'];
 
     try {
         for (const coin of coins){
@@ -18,6 +20,22 @@ export const getAndSaveCryptoData = async () => {
             const savedCrypto = await crypto.save();
         }
         
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getCoinList = (req: Request, res: Response) => {
+    res.status(200).json(coins)
+}
+
+export const deleteUnusedCoins = async() => {
+    try {
+            const documentsToDelete = await Crypto.find({}).sort({timeStamp: -1}).skip(200).exec();
+            const idsOfDocumentToDelete = documentsToDelete.map(document => document._id);
+            await Crypto.deleteMany({_id : {$in : idsOfDocumentToDelete}})
+            console.log("Unusefull documents deleted");
+       
     } catch (error) {
         console.log(error);
     }

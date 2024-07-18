@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
-const StockTable: React.FC = () => {
+const CryptoTable: React.FC = () => {
     const data = useSelector((state: RootState) => state.data);
     const selectedCrypto = useSelector((state: RootState) => state.selectedCrypto);
 
@@ -14,14 +14,14 @@ const StockTable: React.FC = () => {
           </tr>
           <tr className="bg-blue-300">
             <th className="border border-gray-300 py-2 px-4">Timestamp</th>
-            <th className="border border-gray-300 py-2 px-4">Price</th>
+            <th className="border border-gray-300 py-2 px-4">Price(USD)</th>
           </tr>
         </thead>
         <tbody>
           {data.map((entry, index) => (
             <tr key={index} className="odd:bg-white even:bg-gray-100">
               <td className="border border-gray-300 py-2 px-4 text-center">{new Date(entry.timestamp).toLocaleString()}</td>
-              <td className="border border-gray-300 py-2 px-4">{entry.price}</td>
+              <td className="border border-gray-300 py-2 px-4 text-center">{entry.price.substring(5)}</td>
             </tr>
           ))}
         </tbody>
@@ -30,4 +30,4 @@ const StockTable: React.FC = () => {
     );
 };
 
-export default StockTable;
+export default CryptoTable;

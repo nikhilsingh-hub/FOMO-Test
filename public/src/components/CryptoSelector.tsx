@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedCryto, fetchCryptoData } from '../store/cryptoSlice';
 import { RootState, AppDispatch } from '../store/store';
 
-const StockSelector: React.FC = () => {
-    const selectedCrypto = useSelector((state: RootState) => state.selectedCrypto);
-    const [selectedCryptoState, setSelectedCryptoState] = useState<string>(selectedCrypto || '');
+const CryptoSelector: React.FC = () => {
+    const currentCrypto = useSelector((state: RootState) => state.selectedCrypto);
+    const [selectedCryptoState, setSelectedCryptoState] = useState<string>(currentCrypto || '');
     const [modal, setModal] = useState<boolean>(false);
     const dispatch = useDispatch<AppDispatch>();
     const coins: string[] = ['bitcoin', 'ethereum', 'solana', 'dogecoin', 'litecoin'];
@@ -58,4 +58,4 @@ const StockSelector: React.FC = () => {
     );
 };
 
-export default StockSelector;
+export default CryptoSelector;
